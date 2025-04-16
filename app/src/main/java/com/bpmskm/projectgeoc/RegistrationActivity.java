@@ -1,0 +1,80 @@
+package com.bpmskm.projectgeoc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseUser;
+
+public class RegistrationActivity extends AppCompatActivity {
+
+    private EditText etRegEmail, etRegPassword, etRegConfirmPassword;
+    private Button btnRegister, btnGoToLogin;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_registration);
+
+        etRegEmail = findViewById(R.id.etRegEmail);
+        etRegPassword = findViewById(R.id.etRegPassword);
+        etRegConfirmPassword = findViewById(R.id.etRegConfirmPassword);
+        btnRegister = findViewById(R.id.btnRegister);
+        btnGoToLogin = findViewById(R.id.btnGoToLogin);
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = etRegEmail.getText().toString().trim();
+                String password = etRegPassword.getText().toString().trim();
+                String confirmPassword = etRegConfirmPassword.getText().toString().trim();
+
+                if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    Toast.makeText(RegistrationActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!password.equals(confirmPassword)) {
+                    Toast.makeText(RegistrationActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!isValidPassword(password)) {
+                    Toast.makeText(RegistrationActivity.this, "Password does not meet the requirements.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                AuthenticationManager.registerUser(email, password, new AuthenticationManager.AuthCallback() {
+                    @Override
+                    public void onSuccess(FirebaseUser user) {
+                        Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    @Override
+                    public void onFailure(String errorMessage) {
+                        Toast.makeText(RegistrationActivity.this, "Registration Failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        btnGoToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private boolean isValidPassword(String password) {
+        String passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
+        return password.matches(passwordRegex);
+    }
+}
