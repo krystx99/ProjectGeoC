@@ -33,6 +33,10 @@
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ProjectGeoC" />
+        <activity
+            android:name=".PasswordResetActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ProjectGeoC" />
     </application>
 
 </manifest>

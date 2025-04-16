@@ -34,4 +34,15 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot password?"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true" />
 </LinearLayout>
