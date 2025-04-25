@@ -47,19 +47,21 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
-                AuthenticationManager.registerUser(email, password, new AuthenticationManager.AuthCallback() {
+                AuthenticationManager.registerUser(RegistrationActivity.this, email, password, new AuthenticationManager.AuthCallback() {
                     @Override
                     public void onSuccess(FirebaseUser user) {
-                        Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        // Registration successful, go to MainActivity
+                        Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
+
                     @Override
                     public void onFailure(String errorMessage) {
-                        Toast.makeText(RegistrationActivity.this, "Registration Failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationActivity.this, "Registration failed: " + errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
+
             }
         });
 
