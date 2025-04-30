@@ -1,7 +1,9 @@
 package com.bpmskm.projectgeoc;
 
+import android.Manifest;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
@@ -16,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
+        if (!AuthenticationManager.isNotificationPermissionAsked(this)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1001);
+            AuthenticationManager.setNotificationPermissionAsked(this, true);
+        }
 
         // Domyślny fragment
         loadFragment(new MapFragment());
