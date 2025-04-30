@@ -20,6 +20,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (AuthenticationManager.isLoggedIn(this)) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_login);
 
         etEmail = findViewById(R.id.etEmail);
@@ -42,19 +48,21 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                AuthenticationManager.loginUser(email, password, new AuthenticationManager.AuthCallback() {
+                AuthenticationManager.loginUser(LoginActivity.this, email, password, new AuthenticationManager.AuthCallback() {
                     @Override
                     public void onSuccess(FirebaseUser user) {
-                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        // Login successful, launch main activity
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
+
                     @Override
                     public void onFailure(String errorMessage) {
-                        Toast.makeText(LoginActivity.this, "Login Failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login failed: " + errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
+
             }
         });
 
