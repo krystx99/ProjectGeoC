@@ -12,6 +12,13 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
+    private Fragment profileFragment;
+    private Fragment mapFragment;
+    private Fragment messagesFragment;
+    private Fragment listsFragment;
+    private Fragment moreFragment;
+    private Fragment currentFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +36,14 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
+        profileFragment = new ProfileFragment();
+        mapFragment = new MapFragment();
+        messagesFragment = new MessagesFragment();
+        listsFragment = new ListsFragment();
+        moreFragment = new MoreFragment();
         // Tylko jeśli to pierwsze uruchomienie aktywności (np. nie po zmianie motywu)
         if (savedInstanceState == null) {
-            loadFragment(new MapFragment());
+            loadFragment(profileFragment);
         }
 
         bottomNavigation.setOnItemSelectedListener(item -> {
@@ -39,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
             int itemId = item.getItemId();
 
             if (itemId == R.id.nav_profile) {
-                fragment = new ProfileFragment();
+                fragment =  profileFragment;
             } else if (itemId == R.id.nav_messages) {
-                fragment = new MessagesFragment();
+                fragment = messagesFragment;
             } else if (itemId == R.id.nav_map) {
-                fragment = new MapFragment();
+                fragment =  mapFragment;
             } else if (itemId == R.id.nav_lists) {
-                fragment = new ListsFragment();
+                fragment = listsFragment;
             } else if (itemId == R.id.nav_more) {
-                fragment = new MoreFragment();
+                fragment =  moreFragment;
             }
 
             return loadFragment(fragment);

@@ -37,6 +37,9 @@
             android:name=".PasswordResetActivity"
             android:exported="true"
             android:theme="@style/Theme.ProjectGeoC" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC5P2RpDBwelNr6BlQP9BkMoTkkZai" />
     </application>
 
 </manifest>
