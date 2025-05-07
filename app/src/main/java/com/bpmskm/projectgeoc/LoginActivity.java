@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = etPassword.getText().toString().trim();
 
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Please enter all details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.login_missingDetails, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(String errorMessage) {
-                        Toast.makeText(LoginActivity.this, "Login failed: " + errorMessage, Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, R.string.login_failed + errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
 

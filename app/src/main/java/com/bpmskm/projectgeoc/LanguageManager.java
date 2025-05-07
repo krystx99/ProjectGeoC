@@ -11,23 +11,33 @@ import java.util.Locale;
 public class LanguageManager {
 
     private static final String SELECTED_LANGUAGE = "Language.Manager.Selected";
+    private static final String SYSTEM_LANGUAGE = "system";
+    public static final String ENGLISH = "en";
+    public static final String POLISH = "pl";
 
     public static Context setLocale(Context context) {
-        return setLocale(context, getLanguage(context));
+        String language = getLanguage(context);
+
+        if (language.equals(SYSTEM_LANGUAGE)) {
+            return context;
+        }
+
+        return updateLocale(context, language);
     }
 
     public static Context setLocale(Context context, String language) {
         saveLanguage(context, language);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return updateResources(context, language);
+        if (language.equals(SYSTEM_LANGUAGE)) {
+            return context;
         }
 
-        return updateResourcesLegacy(context, language);
+        return updateLocale(context, language);
     }
 
     public static String getLanguage(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(SELECTED_LANGUAGE, Locale.getDefault().getLanguage());
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(SELECTED_LANGUAGE, SYSTEM_LANGUAGE);
     }
 
     private static void saveLanguage(Context context, String language) {
@@ -35,6 +45,10 @@ public class LanguageManager {
                 .edit()
                 .putString(SELECTED_LANGUAGE, language)
                 .apply();
+    }
+
+    private static Context updateLocale(Context context, String language) {
+        return updateResources(context, language);
     }
 
     private static Context updateResources(Context context, String language) {
@@ -46,20 +60,5 @@ public class LanguageManager {
         config.setLayoutDirection(locale);
 
         return context.createConfigurationContext(config);
-    }
-
-    @SuppressWarnings("deprecation")
-    private static Context updateResourcesLegacy(Context context, String language) {
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-
-        Resources resources = context.getResources();
-        Configuration config = resources.getConfiguration();
-        config.locale = locale;
-        config.setLayoutDirection(locale);
-
-        resources.updateConfiguration(config, resources.getDisplayMetrics());
-
-        return context;
     }
 }
