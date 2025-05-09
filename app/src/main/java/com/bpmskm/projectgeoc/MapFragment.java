@@ -1,5 +1,7 @@
 package com.bpmskm.projectgeoc;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,13 +10,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -61,15 +64,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onMapReady(@NonNull GoogleMap map) {
         googleMap = map;
         isMapReady = true;
-        Log.d("MapFragment","Mapa jest gotowa");
-        LatLng warszawa = new LatLng(52.237049, 21.017532);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(warszawa,10));
+        Log.d("MapFragment", "Mapa jest gotowa");
 
-        //kontrolki
+        LatLng warszawa = new LatLng(52.237049, 21.017532);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(warszawa, 10));
+
         googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.getUiSettings().setZoomGesturesEnabled(true);
+        googleMap.getUiSettings().setScrollGesturesEnabled(true);
+        googleMap.getUiSettings().setRotateGesturesEnabled(true);
+        googleMap.getUiSettings().setTiltGesturesEnabled(true);
+
         googleMap.setOnMapLongClickListener(this);
 
-        // Opcjonalnie: Dodaj markery, polylinie itp. tutaj, jeśli chcesz
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            }, 1001);
+            return;
+        }
+
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+        Log.d("MapFragment", "Kontrolki mapy zostały włączone.");
     }
     @Override
     public void onMapLongClick(@NonNull LatLng latLng)

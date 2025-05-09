@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".GeocachingApp"
@@ -52,7 +54,7 @@
             android:theme="@style/Theme.ProjectGeoC" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC5P2RpDBwelNr6BlQP9BkMoTkkZai" />
+            android:value="AIzaSyCsisR5iUOjs80tBR0RM5vjs1uIuvCsjB0" />
     </application>
 
 </manifest>
