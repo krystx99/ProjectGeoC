@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">Następny</string>
+    <string name="previous">Poprzedni</string>
+    <!-- UI Elements -->
+    <string name="editText_email">Adres email</string>
+    <string name="editText_password">Hasło</string>
+    <string name="editText_enterExistingEmail">Wprowadź swój adres email</string>
+    <string name="editText_confirmPassword">Powtórz hasło</string>
+    <string name="textView_passwordRequirements">Hasło musi składać się z co najmniej 8 znaków, zawierać co najmniej jedną literę, jedną cyfrę i jeden znak specjalny.</string>
+
+    <string name="button_login">Zaloguj się</string>
+    <string name="button_register">Zarejestruj się</string>
+    <string name="button_resetPassword">Reset Password</string>
+    <string name="button_back">Powrót</string>
+    <!-- Bottom Menu -->
+    <string name="bottomMenu_profile">Profil</string>
+    <string name="bottomMenu_messages">Wiadomości</string>
+    <string name="bottomMenu_map">Mapa</string>
+    <string name="bottomMenu_list">Listy</string>
+    <string name="bottomMenu_more">Więcej</string>
+    <!-- Login -->
+    <string name="login_missingDetails">Proszę poprawnie wpisać wszystkie dane</string>
+    <string name="login_failed">"Logowanie nieudane: "</string>
+    <string name="login_forgotPassword">Nie pamiętasz hasła?</string>
+    <!-- Registration -->
+    <string name="registration_missingDetails">Proszę poprawnie wpisać wszystkie dane</string>
+    <string name="registration_passwordsNotMatch">Hasła nie są identyczne</string>
+    <string name="registration_passwordNotValid">Hasło nie spełnia wymagań</string>
+    <string name="registration_failed">"Rejestracja nieudana: "</string>
+</resources>

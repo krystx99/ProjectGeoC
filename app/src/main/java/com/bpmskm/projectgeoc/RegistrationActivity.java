@@ -33,17 +33,17 @@ public class RegistrationActivity extends AppCompatActivity {
                 String confirmPassword = etRegConfirmPassword.getText().toString().trim();
 
                 if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                    Toast.makeText(RegistrationActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, R.string.registration_missingDetails, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!password.equals(confirmPassword)) {
-                    Toast.makeText(RegistrationActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, R.string.registration_passwordsNotMatch, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!isValidPassword(password)) {
-                    Toast.makeText(RegistrationActivity.this, "Password does not meet the requirements.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, R.string.registration_passwordNotValid, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -58,7 +58,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(String errorMessage) {
-                        Toast.makeText(RegistrationActivity.this, "Registration failed: " + errorMessage, Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegistrationActivity.this, R.string.registration_failed + errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
 

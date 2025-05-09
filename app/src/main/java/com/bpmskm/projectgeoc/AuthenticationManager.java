@@ -15,7 +15,6 @@ public class AuthenticationManager {
     private static final String PREFS_NAME = "auth_prefs";
     private static final String KEY_LOGGED_IN = "is_logged_in";
     private static final String KEY_NOTIFICATION_PERMISSION_ASKED = "notification_permission_asked";
-    private static final String KEY_LANGUAGE = "app_language";
 
     public interface AuthCallback {
         void onSuccess(FirebaseUser user);
@@ -110,15 +109,5 @@ public class AuthenticationManager {
     public static void setNotificationPermissionAsked(Context context, boolean asked) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().putBoolean(KEY_NOTIFICATION_PERMISSION_ASKED, asked).apply();
-    }
-
-    public static void setAppLanguage(Context context, String language) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        prefs.edit().putString(KEY_LANGUAGE, language).apply();
-    }
-
-    public static String getSavedLanguage(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(KEY_LANGUAGE, "en"); // Default to English
     }
 }
