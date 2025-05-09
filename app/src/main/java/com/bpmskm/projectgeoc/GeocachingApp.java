@@ -13,7 +13,7 @@ public class GeocachingApp extends Application {
     }
     @Override
     protected void attachBaseContext(Context base) {
-        String lang = LanguageManager.getLanguage(base);
-        super.attachBaseContext(LanguageManager.setLocale(base, lang));
+        String language = LanguageManager.getLanguage(base);
+        super.attachBaseContext(LanguageManager.setLocale(base, language));
     }
 }

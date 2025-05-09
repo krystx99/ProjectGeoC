@@ -9,11 +9,13 @@
         android:id="@+id/more_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Więcej"
+        android:text="@string/bottomMenu_more"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:layout_gravity="start"
         android:layout_marginBottom="16dp"/>
 
+    <!-- Dark Theme Toggle -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,85 +29,40 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Tryb ciemny"
+            android:text="@string/textView_appTheme"
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/themeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 
+
+    <!-- Language Selection -->
     <LinearLayout
-        android:id="@+id/languageButtonContainer"
+        android:id="@+id/language_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_marginTop="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Język"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/selectedLanguageTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Polski"
-                android:textSize="16sp"
-                android:gravity="end" />
-
-        </LinearLayout>
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:minWidth="48dp"
+        android:minHeight="48dp">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Polski"
-            android:textSize="16sp"
-            android:visibility="gone"
-            android:id="@+id/languagePolish" />
+            android:layout_weight="1"
+            android:text="@string/textView_Language"
+            android:textSize="18sp"/>
 
-        <TextView
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/language_spinner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Angielski"
-            android:textSize="16sp"
-            android:visibility="gone"
-            android:id="@+id/languageEnglish" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Niemiecki"
-            android:textSize="16sp"
-            android:visibility="gone"
-            android:id="@+id/languageGerman" />
-
+            android:gravity="end"
+            android:textAlignment="viewEnd"
+            android:entries="@array/language_options"/>
     </LinearLayout>
 
 </LinearLayout>

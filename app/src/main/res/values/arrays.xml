@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language_options">
+        <item>@string/textView_systemLanguage</item>
+        <item>@string/textView_English</item>
+        <item>@string/textView_Polish</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>@string/textView_systemTheme</item>
+        <item>@string/textView_lightTheme</item>
+        <item>@string/textView_darkTheme</item>
+    </string-array>
+</resources>
