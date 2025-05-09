@@ -1,16 +1,46 @@
 <resources>
+
     <string name="app_name">ProjectGeoC</string>
     <string name="action_settings">Settings</string>
     <string name="action_gallery">Gallery</string>
     <string name="action_profile">Profile</string>
     <string name="mapa_interaktywna">Mapa Interaktywna</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
-    <string name="hello_world">
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="hello_world" translatable="false">
         Hello World
     </string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="false">General Notifications</string>
+    <string name="default_notification_channel_description" translatable="false">Default channel for app notifications</string>
+    <!-- UI Elements -->
+    <string name="editText_email">Email address</string>
+    <string name="editText_password">Password</string>
+    <string name="editText_enterExistingEmail">Enter your email address</string>
+    <string name="editText_confirmPassword">Confirm Password</string>
+    <string name="textView_passwordRequirements">Password must be at least 8 characters long, contain at least one letter, one number, and one special character.</string>
+
+    <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
+    <string name="button_resetPassword">Reset Password</string>
+    <string name="button_back">Back</string>
+    <!-- Bottom Menu -->
+    <string name="bottomMenu_profile">Profile</string>
+    <string name="bottomMenu_messages">Messages</string>
+    <string name="bottomMenu_map">Map</string>
+    <string name="bottomMenu_list">Lists</string>
+    <string name="bottomMenu_more">More</string>
+    <!-- Login -->
+    <string name="login_missingDetails">Please fill in all fields</string>
+    <string name="login_failed">"Login failed: "</string>
+    <string name="login_forgotPassword">Forgot password?</string>
+    <!-- Registration -->
+    <string name="registration_missingDetails">Please fill in all fields</string>
+    <string name="registration_passwordsNotMatch">Passwords do not match</string>
+    <string name="registration_passwordNotValid">Password does not meet the requirements</string>
+    <string name="registration_failed">"Registration failed: "</string>
 </resources>

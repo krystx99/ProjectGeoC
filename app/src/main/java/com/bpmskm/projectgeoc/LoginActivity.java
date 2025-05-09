@@ -20,6 +20,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (AuthenticationManager.isLoggedIn(this)) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_login);
 
         etEmail = findViewById(R.id.etEmail);
@@ -38,23 +44,25 @@ public class LoginActivity extends AppCompatActivity {
                 String password = etPassword.getText().toString().trim();
 
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Please enter all details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.login_missingDetails, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                AuthenticationManager.loginUser(email, password, new AuthenticationManager.AuthCallback() {
+                AuthenticationManager.loginUser(LoginActivity.this, email, password, new AuthenticationManager.AuthCallback() {
                     @Override
                     public void onSuccess(FirebaseUser user) {
-                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        // Login successful, launch main activity
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
+
                     @Override
                     public void onFailure(String errorMessage) {
-                        Toast.makeText(LoginActivity.this, "Login Failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, R.string.login_failed + errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
+
             }
         });
 
