@@ -6,14 +6,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.content.SharedPreferences;
+import androidx.appcompat.app.AppCompatDelegate;
+import android.content.Context;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
+    private Fragment profileFragment;
+    private Fragment mapFragment;
+    private Fragment messagesFragment;
+    private Fragment listsFragment;
+    private Fragment moreFragment;
+    private Fragment currentFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        boolean isDarkMode = prefs.getBoolean("dark_mode", false);
+
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -23,24 +42,30 @@ public class MainActivity extends AppCompatActivity {
             AuthenticationManager.setNotificationPermissionAsked(this, true);
         }
 
-        // Domyślny fragment
-        loadFragment(new MapFragment());
+        profileFragment = new ProfileFragment();
+        mapFragment = new MapFragment();
+        messagesFragment = new MessagesFragment();
+        listsFragment = new ListsFragment();
+        moreFragment = new MoreFragment();
+        // Tylko jeśli to pierwsze uruchomienie aktywności (np. nie po zmianie motywu)
+        if (savedInstanceState == null) {
+            loadFragment(profileFragment);
+        }
 
-        // Obsługa kliknięć
         bottomNavigation.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
             int itemId = item.getItemId();
 
             if (itemId == R.id.nav_profile) {
-                fragment = new ProfileFragment();
+                fragment =  profileFragment;
             } else if (itemId == R.id.nav_messages) {
-                fragment = new MessagesFragment();
+                fragment = messagesFragment;
             } else if (itemId == R.id.nav_map) {
-                fragment = new MapFragment();
+                fragment =  mapFragment;
             } else if (itemId == R.id.nav_lists) {
-                fragment = new ListsFragment();
+                fragment = listsFragment;
             } else if (itemId == R.id.nav_more) {
-                fragment = new MoreFragment();
+                fragment =  moreFragment;
             }
 
             return loadFragment(fragment);
