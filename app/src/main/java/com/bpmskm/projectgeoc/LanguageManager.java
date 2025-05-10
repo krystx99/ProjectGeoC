@@ -11,7 +11,7 @@ import java.util.Locale;
 public class LanguageManager {
 
     private static final String SELECTED_LANGUAGE = "Language.Manager.Selected";
-    private static final String SYSTEM_LANGUAGE = "system";
+    public static final String SYSTEM_LANGUAGE = "system";
     public static final String ENGLISH = "en";
     public static final String POLISH = "pl";
 

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -20,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private Fragment listsFragment;
     private Fragment moreFragment;
     private Fragment currentFragment;
+    private AdView adView;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LanguageManager.setLocale(newBase));
+    }
 
 
     @Override
@@ -35,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize AdMob
+        AdManager.init(this);
+        adView = findViewById(R.id.adView);
+        AdManager.loadBanner(adView);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         if (!AuthenticationManager.isNotificationPermissionAsked(this)) {

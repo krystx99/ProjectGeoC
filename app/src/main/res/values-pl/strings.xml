@@ -3,6 +3,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="next">Następny</string>
     <string name="previous">Poprzedni</string>
+    <string name="map_label">Interaktywna mapa</string>
     <!-- UI Elements -->
     <string name="editText_email">Adres email</string>
     <string name="editText_password">Hasło</string>
@@ -29,4 +30,11 @@
     <string name="registration_passwordsNotMatch">Hasła nie są identyczne</string>
     <string name="registration_passwordNotValid">Hasło nie spełnia wymagań</string>
     <string name="registration_failed">"Rejestracja nieudana: "</string>
+    <string name="textView_appTheme">Motyw aplikacji</string>
+    <string name="textView_Language">Język</string>
+    <string name="textView_systemLanguage">Język systemu</string>
+    <!-- Themes -->
+    <string name="textView_systemTheme">Motyw systemu</string>
+    <string name="textView_lightTheme">Jasny</string>
+    <string name="textView_darkTheme">Ciemny</string>
 </resources>

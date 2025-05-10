@@ -1,13 +1,13 @@
 <resources>
 
-    <string name="app_name">ProjectGeoC</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_gallery">Gallery</string>
-    <string name="action_profile">Profile</string>
-    <string name="mapa_interaktywna">Mapa Interaktywna</string>
+    <string name="app_name" translatable="false">Geocaching++</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="action_gallery" translatable="false">Gallery</string>
+    <string name="action_profile" translatable="false">Profile</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label" translatable="false">First Fragment</string>
     <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="map_label">Interactive map</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
@@ -43,4 +43,14 @@
     <string name="registration_passwordsNotMatch">Passwords do not match</string>
     <string name="registration_passwordNotValid">Password does not meet the requirements</string>
     <string name="registration_failed">"Registration failed: "</string>
+    <string name="textView_appTheme">Application theme</string>
+    <string name="textView_Language">Language</string>
+    <string name="textView_Polish" translatable="false">Polski</string>
+    <string name="textView_English" translatable="false">English</string>
+    <string name="textView_systemLanguage">System language</string>
+    <string name="mapa_interaktywna" translatable="false">Mapa interaktywna</string>
+    <!-- Themes -->
+    <string name="textView_systemTheme">System theme</string>
+    <string name="textView_lightTheme">Light</string>
+    <string name="textView_darkTheme">Dark</string>
 </resources>
