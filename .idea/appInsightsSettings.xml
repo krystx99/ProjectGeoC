@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.bpmskm.projectgeoc" />
+                  <option name="mobileSdkAppId" value="1:558646018994:android:f2ce26213ab96d1c001aab" />
+                  <option name="projectId" value="project-geocaching" />
+                  <option name="projectNumber" value="558646018994" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

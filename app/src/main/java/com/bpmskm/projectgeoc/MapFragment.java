@@ -89,6 +89,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
         googleMap.setMyLocationEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        // FOR GDZIE POBIERAMY PUBLICZNE PINEZKI
+        // FOR (int i = 0;i<lista.size();i++){
+        //MarkerOptions marketOptions = new MarkerOptions()
+        //                .position(latLng)
+        //                .title("Nowa pinezka")
+        //                .snippet("Opis");
+        // }
+        // POBIERAMY LATLNG, TITLE I SNIPPET
+        // googleMap.addMarker()
 
         Log.d("MapFragment", "Kontrolki mapy zostały włączone.");
     }
@@ -101,8 +110,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 .snippet("Opis");
 
         googleMap.addMarker(marketOptions);
-
-        Toast.makeText(getContext(), "Dodano pinezkęna: "+ latLng.latitude + "," + latLng.longitude, Toast.LENGTH_SHORT).show();
+        //DO FIREBASE
+        Toast.makeText(getContext(), "Dodano pinezkę na: "+ latLng.latitude + "," + latLng.longitude, Toast.LENGTH_SHORT).show();
 
     }
 }
