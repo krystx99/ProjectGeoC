@@ -35,6 +35,10 @@ public class LanguageManager {
         return updateLocale(context, language);
     }
 
+    public static Locale getLocale(Context context) {
+        return new Locale(getLanguage(context));
+    }
+
     public static String getLanguage(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(SELECTED_LANGUAGE, SYSTEM_LANGUAGE);

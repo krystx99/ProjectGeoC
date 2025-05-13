@@ -2,19 +2,25 @@ package com.bpmskm.projectgeoc;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class AuthenticationManager {
     private static final String PREFS_NAME = "auth_prefs";
     private static final String KEY_LOGGED_IN = "is_logged_in";
-    private static final String KEY_NOTIFICATION_PERMISSION_ASKED = "notification_permission_asked";
 
     public interface AuthCallback {
         void onSuccess(FirebaseUser user);
@@ -41,39 +47,38 @@ public class AuthenticationManager {
     public static void loginUser(Context context, String email, String password, final AuthCallback callback) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            FirebaseUser user = task.getResult().getUser();
-                            setLoggedInFlag(context, true);
-                            callback.onSuccess(user);
-                        } else {
-                            String error = task.getException() != null
-                                    ? task.getException().getMessage()
-                                    : "Unknown error during login.";
-                            callback.onFailure(error);
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        FirebaseUser user = task.getResult().getUser();
+                        setLoggedInFlag(context, true);
+                        if (user != null) {
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            fetchUserData(context, user.getUid(), db);
                         }
+                        callback.onSuccess(user);
+                    } else {
+                        String error = task.getException() != null
+                                ? task.getException().getMessage()
+                                : "Unknown error during login.";
+                        callback.onFailure(error);
                     }
                 });
+
     }
 
     public static void registerUser(Context context, String email, String password, final AuthCallback callback) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            FirebaseUser user = task.getResult().getUser();
-                            setLoggedInFlag(context, true);
-                            callback.onSuccess(user);
-                        } else {
-                            String error = task.getException() != null
-                                    ? task.getException().getMessage()
-                                    : "Unknown error during registration.";
-                            callback.onFailure(error);
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        FirebaseUser user = task.getResult().getUser();
+                        setLoggedInFlag(context, true);
+                        callback.onSuccess(user);
+                    } else {
+                        String error = task.getException() != null
+                                ? task.getException().getMessage()
+                                : "Unknown error during registration.";
+                        callback.onFailure(error);
                     }
                 });
     }
@@ -81,33 +86,89 @@ public class AuthenticationManager {
     public static void resetPassword(String email, final ResetCallback callback) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            callback.onSuccess();
-                        } else {
-                            String error = task.getException() != null
-                                    ? task.getException().getMessage()
-                                    : "Unknown error during password reset.";
-                            callback.onFailure(error);
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        callback.onSuccess();
+                    } else {
+                        String error = task.getException() != null
+                                ? task.getException().getMessage()
+                                : "Unknown error during password reset.";
+                        callback.onFailure(error);
                     }
                 });
     }
 
-    private static void setLoggedInFlag(Context context, boolean value) {
+    public static void setLoggedInFlag(Context context, boolean value) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().putBoolean(KEY_LOGGED_IN, value).apply();
     }
 
-    public static boolean isNotificationPermissionAsked(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getBoolean(KEY_NOTIFICATION_PERMISSION_ASKED, false);
+    // Wczytywanie informacji o użytkowniku z Firebase
+    public static void fetchUserData(Context context, String uid, FirebaseFirestore db) {
+        db.collection("Users")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String username = documentSnapshot.getString("username");
+                        Timestamp timestamp = documentSnapshot.getTimestamp("registerDate");
+                        String registerDate = "";
+                        if (timestamp != null) {
+                            Date date = timestamp.toDate();
+                            SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy", LanguageManager.getLocale(context));
+                            registerDate = sdf.format(date);
+                        }
+
+                        Long points = documentSnapshot.getLong("points");
+                        Long steps = documentSnapshot.getLong("steps");
+
+                        User user = new User(
+                                uid,
+                                username,
+                                registerDate,
+                                points != null ? points.intValue() : 0,
+                                steps != null ? steps.intValue() : 0
+                        );
+
+                        UserManager.setCurrentUser(user);
+                    }
+                });
     }
 
-    public static void setNotificationPermissionAsked(Context context, boolean asked) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        prefs.edit().putBoolean(KEY_NOTIFICATION_PERMISSION_ASKED, asked).apply();
+    public static void fetchUserData(Context context) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String uid;
+        if (currentUser != null) {
+            uid = currentUser.getUid();
+            db.collection("Users")
+                    .document(uid)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String username = documentSnapshot.getString("username");
+                            Timestamp timestamp = documentSnapshot.getTimestamp("registerDate");
+                            String registerDate = "";
+                            if (timestamp != null) {
+                                Date date = timestamp.toDate();
+                                SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy", LanguageManager.getLocale(context));
+                                registerDate = sdf.format(date);
+                            }
+
+                            Long points = documentSnapshot.getLong("points");
+                            Long steps = documentSnapshot.getLong("steps");
+
+                            User user = new User(
+                                    uid,
+                                    username,
+                                    registerDate,
+                                    points != null ? points.intValue() : 0,
+                                    steps != null ? steps.intValue() : 0
+                            );
+
+                            UserManager.setCurrentUser(user);
+                        }
+                    });
+        }
     }
 }

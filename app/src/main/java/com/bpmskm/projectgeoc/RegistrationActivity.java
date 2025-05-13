@@ -7,7 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -17,6 +20,9 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         setContentView(R.layout.activity_registration);
 
         etRegEmail = findViewById(R.id.etRegEmail);
@@ -51,8 +57,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(FirebaseUser user) {
                         // Registration successful, go to MainActivity
-                        Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        if (currentUser != null) {
+                            AuthenticationManager.fetchUserData(RegistrationActivity.this);
+                        }
+                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                         finish();
                     }
 
@@ -68,8 +76,7 @@ public class RegistrationActivity extends AppCompatActivity {
         btnGoToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                 finish();
             }
         });

@@ -37,4 +37,10 @@
     <string name="textView_systemTheme">Motyw systemu</string>
     <string name="textView_lightTheme">Jasny</string>
     <string name="textView_darkTheme">Ciemny</string>
+    <!-- User Data -->
+    <string name="fragment_profile">Profil użytkownika</string>
+    <string name="textView_userSteps">Liczba kroków</string>
+    <string name="textView_userRegisterDate">Data rejestracji</string>
+    <string name="textView_userPoints">Punkty</string>
+    <string name="button_logout">Wyloguj się</string>
 </resources>

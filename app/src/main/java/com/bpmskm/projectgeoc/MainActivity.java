@@ -1,6 +1,7 @@
 package com.bpmskm.projectgeoc;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         super.attachBaseContext(LanguageManager.setLocale(newBase));
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
@@ -50,16 +50,40 @@ public class MainActivity extends AppCompatActivity {
         AdManager.loadBanner(adView);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
-        if (!AuthenticationManager.isNotificationPermissionAsked(this)) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1001);
-            AuthenticationManager.setNotificationPermissionAsked(this, true);
+
+        // Zezwolenie na wysyłanie powiadomień i wykorzystywanie lokalizacji
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.POST_NOTIFICATIONS,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
+            }
+            else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1001);
+            }
+        }
+        else if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.POST_NOTIFICATIONS,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
+            }
+            else {
+                ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
+            }
         }
 
-        profileFragment = new ProfileFragment();
         mapFragment = new MapFragment();
         messagesFragment = new MessagesFragment();
         listsFragment = new ListsFragment();
         moreFragment = new MoreFragment();
+        profileFragment = new ProfileFragment();
         // Tylko jeśli to pierwsze uruchomienie aktywności (np. nie po zmianie motywu)
         if (savedInstanceState == null) {
             loadFragment(profileFragment);

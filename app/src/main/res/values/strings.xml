@@ -53,4 +53,14 @@
     <string name="textView_systemTheme">System theme</string>
     <string name="textView_lightTheme">Light</string>
     <string name="textView_darkTheme">Dark</string>
+    <!-- User Data -->
+    <string name="fragment_profile">User profile</string>
+    <string name="textView_userSteps">Steps count</string>
+    <string name="textView_userStepsValue" translatable="false">0</string>
+    <string name="textView_username" translatable="false">Username</string>
+    <string name="textView_userRegisterDate">Register date</string>
+    <string name="textView_userRegisterDateValue" translatable="false">01.01.2025</string>
+    <string name="textView_userPoints">Points</string>
+    <string name="textView_userPointsValue" translatable="false">0</string>
+    <string name="button_logout">Logout</string>
 </resources>
