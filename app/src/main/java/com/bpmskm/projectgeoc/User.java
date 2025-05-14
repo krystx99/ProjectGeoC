@@ -7,10 +7,6 @@ public class User {
     private int points;
     private int steps;
 
-    public User() {
-        // Required empty constructor for Firebase deserialization
-    }
-
     public User(String uid, String username, String registerDate, int points, int steps) {
         this.uid = uid;
         this.username = username;
@@ -19,7 +15,6 @@ public class User {
         this.steps = steps;
     }
 
-    // Getters
     public String getUid() {
         return uid;
     }
@@ -40,7 +35,6 @@ public class User {
         return steps;
     }
 
-    // Setters
     public void setUid(String uid) {
         this.uid = uid;
     }

@@ -24,9 +24,9 @@
         android:minHeight="48dp">
 
         <ImageView
+            android:id="@+id/user_profile_icon_image_view"
             android:layout_width="95dp"
             android:layout_height="82dp"
-
             android:src="@drawable/ic_user"
             android:contentDescription="@string/fragment_profile"
             android:scaleType="fitStart"

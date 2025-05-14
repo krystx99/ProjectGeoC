@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
@@ -21,17 +20,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
         if (AuthenticationManager.isLoggedIn(this)) {
-            if (currentUser != null) {
-                AuthenticationManager.fetchUserData(this);
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
-            }
-            else {
-                AuthenticationManager.setLoggedInFlag(this, false);
-            }
+            startActivity(new Intent(this, LoadingActivity.class));
+            finish();
+            return;
         }
 
         setContentView(R.layout.activity_login);
@@ -50,11 +42,10 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, R.string.login_missingDetails, Toast.LENGTH_SHORT).show();
                 return;
             }
-
             AuthenticationManager.loginUser(LoginActivity.this, email, password, new AuthenticationManager.AuthCallback() {
                 @Override
                 public void onSuccess(FirebaseUser user) {
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, LoadingActivity.class));
                     finish();
                 }
 

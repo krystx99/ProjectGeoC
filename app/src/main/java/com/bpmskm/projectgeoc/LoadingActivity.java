@@ -1,0 +1,29 @@
+package com.bpmskm.projectgeoc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class LoadingActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_loading);
+
+        AuthenticationManager.fetchUserData(this, new AuthenticationManager.UserDataFetchCallback() {
+            @Override
+            public void onUserDataFetched() {
+                startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onUserDataFetchFailed(String errorMessage) {
+                Toast.makeText(LoadingActivity.this, getString(R.string.login_failed) + errorMessage, Toast.LENGTH_LONG).show();
+                AuthenticationManager.signOut(LoadingActivity.this);
+            }
+        });
+    }
+}

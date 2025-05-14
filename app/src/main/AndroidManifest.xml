@@ -41,6 +41,10 @@
         </activity>
 
         <activity
+            android:name=".LoadingActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ProjectGeoC" />
+        <activity
             android:name=".RegistrationActivity"
             android:exported="true"
             android:theme="@style/Theme.ProjectGeoC" />

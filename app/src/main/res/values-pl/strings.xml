@@ -10,8 +10,10 @@
     <string name="editText_enterExistingEmail">Wprowadź swój adres email</string>
     <string name="editText_confirmPassword">Powtórz hasło</string>
     <string name="textView_passwordRequirements">Hasło musi składać się z co najmniej 8 znaków, zawierać co najmniej jedną literę, jedną cyfrę i jeden znak specjalny.</string>
+    <string name="textView_loadingApp">Ładowanie aplikacji…</string>
 
     <string name="button_login">Zaloguj się</string>
+    <string name="button_logout">Wyloguj się</string>
     <string name="button_register">Zarejestruj się</string>
     <string name="button_resetPassword">Reset Password</string>
     <string name="button_back">Powrót</string>
@@ -30,6 +32,7 @@
     <string name="registration_passwordsNotMatch">Hasła nie są identyczne</string>
     <string name="registration_passwordNotValid">Hasło nie spełnia wymagań</string>
     <string name="registration_failed">"Rejestracja nieudana: "</string>
+    <string name="registration_success">Twoje konto zostało zarejestrowane! Możesz teraz zalogować się na to konto.</string>
     <string name="textView_appTheme">Motyw aplikacji</string>
     <string name="textView_Language">Język</string>
     <string name="textView_systemLanguage">Język systemu</string>
@@ -42,5 +45,4 @@
     <string name="textView_userSteps">Liczba kroków</string>
     <string name="textView_userRegisterDate">Data rejestracji</string>
     <string name="textView_userPoints">Punkty</string>
-    <string name="button_logout">Wyloguj się</string>
 </resources>
