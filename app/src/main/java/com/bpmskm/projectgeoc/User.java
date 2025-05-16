@@ -15,6 +15,11 @@ public class User {
         this.steps = steps;
     }
 
+    public User(String username, int points){
+        this.username = username;
+        this.points = points;
+    }
+
     public String getUid() {
         return uid;
     }

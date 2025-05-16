@@ -11,7 +11,9 @@
     <string name="editText_confirmPassword">Powtórz hasło</string>
     <string name="textView_passwordRequirements">Hasło musi składać się z co najmniej 8 znaków, zawierać co najmniej jedną literę, jedną cyfrę i jeden znak specjalny.</string>
     <string name="textView_loadingApp">Ładowanie aplikacji…</string>
+    <string name="textView_top10">Top 10 graczy:</string>
 
+    <string name="textView_noUsers">Brak graczy :(</string>
     <string name="button_login">Zaloguj się</string>
     <string name="button_logout">Wyloguj się</string>
     <string name="button_register">Zarejestruj się</string>
@@ -43,6 +45,7 @@
     <!-- User Data -->
     <string name="fragment_profile">Profil użytkownika</string>
     <string name="textView_userSteps">Liczba kroków</string>
+    <string name="textView_username">Nazwa użytkownika</string>
     <string name="textView_userRegisterDate">Data rejestracji</string>
     <string name="textView_userPoints">Punkty</string>
 </resources>

@@ -2,25 +2,31 @@ package com.bpmskm.projectgeoc;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AuthenticationManager {
+    private static final String TAG = "AuthManager";
     private static final String PREFS_NAME = "auth_prefs";
     private static final String KEY_LOGGED_IN = "is_logged_in";
     private static final String USERS_COLLECTION = "Users";
     private static final String FIELD_USERNAME = "username";
     private static final String FIELD_EMAIL = "email";
     private static final String FIELD_REGISTER_DATE = "registerDate";
-    private static final String FIELD_POINTS = "points";
+    public static final String FIELD_POINTS = "points";
     private static final String FIELD_STEPS = "steps";
 
 
@@ -30,19 +36,25 @@ public class AuthenticationManager {
     }
 
     public interface UserDataFetchCallback {
-        void onUserDataFetched();
-        void onUserDataFetchFailed(String errorMessage);
+        void onSuccess();
+        void onFailure(String errorMessage);
     }
 
     public interface UserDataCreateCallback {
-        void onUserCreatedSuccess();
-        void onUserCreatedFailure(String errorMessage);
+        void onSuccess();
+        void onFailure(String errorMessage);
     }
 
     public interface ResetCallback {
         void onSuccess();
         void onFailure(String errorMessage);
     }
+
+    public interface TopTenUsersCallback {
+        void onSuccess(List<User> topUsers);
+        void onFailure(String errorMessage);
+    }
+
 
     public static boolean isLoggedIn(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -55,6 +67,7 @@ public class AuthenticationManager {
         FirebaseAuth.getInstance().signOut();
         setLoggedInFlag(context, false);
         UserManager.setCurrentUser(null);
+        UserManager.clearTopTenUsers();
     }
 
     public static void loginUser(Context context, String email, String password, final AuthCallback callback) {
@@ -83,12 +96,12 @@ public class AuthenticationManager {
                         if (firebaseUser != null) {
                             createUserData(firebaseUser.getUid(), email, username, new UserDataCreateCallback() {
                                 @Override
-                                public void onUserCreatedSuccess() {
+                                public void onSuccess() {
                                     callback.onSuccess(firebaseUser);
                                 }
 
                                 @Override
-                                public void onUserCreatedFailure(String errorMessage) {
+                                public void onFailure(String errorMessage) {
                                     callback.onFailure("Registration successful, but failed to create user profile: " + errorMessage);
                                 }
                             });
@@ -124,8 +137,7 @@ public class AuthenticationManager {
         prefs.edit().putBoolean(KEY_LOGGED_IN, value).apply();
     }
 
-    // Wczytywanie informacji o użytkowniku z Firebase
-    public static void fetchUserData(Context context, final UserDataFetchCallback callback) {
+    public static void fetchCurrentUserData(Context context, final UserDataFetchCallback callback) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -158,27 +170,26 @@ public class AuthenticationManager {
 
                             UserManager.setCurrentUser(user);
                             if (callback != null) {
-                                callback.onUserDataFetched();
+                                callback.onSuccess();
                             }
                         } else {
                             if (callback != null) {
-                                callback.onUserDataFetchFailed("User data not found in database.");
+                                callback.onFailure("User data not found in database.");
                             }
                         }
                     })
                     .addOnFailureListener(e -> {
                         if (callback != null) {
-                            callback.onUserDataFetchFailed("Failed to fetch user data: " + e.getMessage());
+                            callback.onFailure("Failed to fetch user data: " + e.getMessage());
                         }
                     });
         } else {
             if (callback != null) {
-                callback.onUserDataFetchFailed("Cannot fetch data: current user is null. Please log in.");
+                callback.onFailure("Cannot fetch data: current user is null. Please log in.");
             }
         }
     }
 
-    // Dodawanie nowego użytkownika do bazy danych Firebase
     public static void createUserData(String uid, String email, String username, final UserDataCreateCallback createCallback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> userData = new HashMap<>();
@@ -192,12 +203,46 @@ public class AuthenticationManager {
                 .set(userData)
                 .addOnSuccessListener(aVoid -> {
                     if (createCallback != null) {
-                        createCallback.onUserCreatedSuccess();
+                        createCallback.onSuccess();
                     }
                 })
                 .addOnFailureListener(e -> {
                     if (createCallback != null) {
-                        createCallback.onUserCreatedFailure(e.getMessage());
+                        createCallback.onFailure(e.getMessage());
+                    }
+                });
+    }
+
+    public static void fetchTopTenUsers(Context context, final TopTenUsersCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(USERS_COLLECTION)
+                .orderBy(FIELD_POINTS, Query.Direction.DESCENDING)
+                .limit(10)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<User> topUsers = new ArrayList<>();
+                    if (queryDocumentSnapshots != null) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            String usernameValue = document.getString(FIELD_USERNAME);
+                            Long pointsValue = document.getLong(FIELD_POINTS);
+
+                            User user = new User(
+                                    usernameValue,
+                                    pointsValue != null ? pointsValue.intValue() : 0
+                            );
+                            topUsers.add(user);
+                        }
+                    }
+                    UserManager.setTopTenUsers(topUsers);
+                    if (callback != null) {
+                        callback.onSuccess(topUsers);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error fetching top ten users", e);
+                    UserManager.clearTopTenUsers();
+                    if (callback != null) {
+                        callback.onFailure("Failed to fetch top users: " + e.getMessage());
                     }
                 });
     }

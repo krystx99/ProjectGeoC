@@ -24,6 +24,8 @@
     <string name="editText_confirmPassword">Confirm Password</string>
     <string name="textView_passwordRequirements">Password must be at least 8 characters long, contain at least one letter, one number, and one special character.</string>
     <string name="textView_loadingApp">Loading application…</string>
+    <string name="textView_top10">Top 10 players:</string>
+    <string name="textView_noUsers">No players available :(</string>
 
     <string name="button_login">Login</string>
     <string name="button_logout">Logout</string>
@@ -60,7 +62,7 @@
     <string name="fragment_profile">User profile</string>
     <string name="textView_userSteps">Steps count</string>
     <string name="textView_userStepsValue" translatable="false">0</string>
-    <string name="textView_username" translatable="false">Username</string>
+    <string name="textView_username">Username</string>
     <string name="textView_userRegisterDate">Register date</string>
     <string name="textView_userRegisterDateValue" translatable="false">01.01.2025</string>
     <string name="textView_userPoints">Points</string>
