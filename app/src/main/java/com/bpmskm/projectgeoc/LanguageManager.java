@@ -2,8 +2,6 @@ package com.bpmskm.projectgeoc;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.preference.PreferenceManager;
 
 import java.util.Locale;
@@ -33,6 +31,10 @@ public class LanguageManager {
         }
 
         return updateLocale(context, language);
+    }
+
+    public static Locale getLocale(Context context) {
+        return new Locale(getLanguage(context));
     }
 
     public static String getLanguage(Context context) {

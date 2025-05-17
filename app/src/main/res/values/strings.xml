@@ -23,8 +23,12 @@
     <string name="editText_enterExistingEmail">Enter your email address</string>
     <string name="editText_confirmPassword">Confirm Password</string>
     <string name="textView_passwordRequirements">Password must be at least 8 characters long, contain at least one letter, one number, and one special character.</string>
+    <string name="textView_loadingApp">Loading application…</string>
+    <string name="textView_top10">Top 10 players:</string>
+    <string name="textView_noUsers">No players available :(</string>
 
     <string name="button_login">Login</string>
+    <string name="button_logout">Logout</string>
     <string name="button_register">Register</string>
     <string name="button_resetPassword">Reset Password</string>
     <string name="button_back">Back</string>
@@ -43,6 +47,7 @@
     <string name="registration_passwordsNotMatch">Passwords do not match</string>
     <string name="registration_passwordNotValid">Password does not meet the requirements</string>
     <string name="registration_failed">"Registration failed: "</string>
+    <string name="registration_success">Your account has been registered! You can now login to this account.</string>
     <string name="textView_appTheme">Application theme</string>
     <string name="textView_Language">Language</string>
     <string name="textView_Polish" translatable="false">Polski</string>
@@ -53,4 +58,13 @@
     <string name="textView_systemTheme">System theme</string>
     <string name="textView_lightTheme">Light</string>
     <string name="textView_darkTheme">Dark</string>
+    <!-- User Data -->
+    <string name="fragment_profile">User profile</string>
+    <string name="textView_userSteps">Steps count</string>
+    <string name="textView_userStepsValue" translatable="false">0</string>
+    <string name="textView_username">Username</string>
+    <string name="textView_userRegisterDate">Register date</string>
+    <string name="textView_userRegisterDateValue" translatable="false">01.01.2025</string>
+    <string name="textView_userPoints">Points</string>
+    <string name="textView_userPointsValue" translatable="false">0</string>
 </resources>

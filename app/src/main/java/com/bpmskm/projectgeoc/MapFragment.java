@@ -66,8 +66,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         isMapReady = true;
         Log.d("MapFragment", "Mapa jest gotowa");
 
-        LatLng warszawa = new LatLng(52.237049, 21.017532);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(warszawa, 10));
+        LatLng defaultLocation = new LatLng(51.938237, 15.505255);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10));
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
@@ -75,19 +75,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         googleMap.getUiSettings().setRotateGesturesEnabled(true);
         googleMap.getUiSettings().setTiltGesturesEnabled(true);
 
-        googleMap.setOnMapLongClickListener(this);
-
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+        if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-            }, 1001);
-            return;
+            googleMap.setMyLocationEnabled(true);
         }
-
-        googleMap.setMyLocationEnabled(true);
+        googleMap.setOnMapLongClickListener(this);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         // FOR GDZIE POBIERAMY PUBLICZNE PINEZKI
         // FOR (int i = 0;i<lista.size();i++){

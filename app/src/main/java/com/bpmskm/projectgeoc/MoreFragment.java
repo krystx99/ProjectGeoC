@@ -68,9 +68,8 @@ public class MoreFragment extends Fragment {
 
                 String selectedLang = getLangCode(position);
                 LanguageManager.setLocale(requireContext(), selectedLang);
-                Intent intent = requireActivity().getIntent();
+                startActivity(new Intent(requireActivity(), LoadingActivity.class));
                 requireActivity().finish();
-                startActivity(intent);
             }
 
             @Override
