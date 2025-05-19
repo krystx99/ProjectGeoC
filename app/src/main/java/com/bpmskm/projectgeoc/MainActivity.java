@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Fragment currentFragment;
     private AdView adView;
 
+    private StepsManager stepsManager;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LanguageManager.setLocale(newBase));
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        stepsManager = new StepsManager(this);
 
         // Initialize AdMob
         AdManager.init(this);
@@ -119,4 +122,18 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        stepsManager.startListening();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stepsManager.stopListening();
+    }
+
+
 }
