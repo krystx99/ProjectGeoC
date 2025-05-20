@@ -17,7 +17,7 @@ public class LoadingActivity extends AppCompatActivity {
         AuthenticationManager.fetchCurrentUserData(this, new AuthenticationManager.UserDataFetchCallback() {
             @Override
             public void onSuccess() {
-                AuthenticationManager.fetchTopTenUsers(LoadingActivity.this, new AuthenticationManager.TopTenUsersCallback() {
+                AuthenticationManager.fetchTopTenUsers(new AuthenticationManager.TopTenUsersCallback() {
                     @Override
                     public void onSuccess(List<User> topUsers) {
                         startActivity(new Intent(LoadingActivity.this, MainActivity.class));

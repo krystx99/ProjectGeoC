@@ -12,8 +12,9 @@
     <string name="textView_passwordRequirements">Hasło musi składać się z co najmniej 8 znaków, zawierać co najmniej jedną literę, jedną cyfrę i jeden znak specjalny.</string>
     <string name="textView_loadingApp">Ładowanie aplikacji…</string>
     <string name="textView_top10">Top 10 graczy:</string>
-
+    <string name="textView_cacheView">Podgląd skrytki</string>
     <string name="textView_noUsers">Brak graczy :(</string>
+
     <string name="button_login">Zaloguj się</string>
     <string name="button_logout">Wyloguj się</string>
     <string name="button_register">Zarejestruj się</string>
@@ -48,4 +49,14 @@
     <string name="textView_username">Nazwa użytkownika</string>
     <string name="textView_userRegisterDate">Data rejestracji</string>
     <string name="textView_userPoints">Punkty</string>
+    <string name="textView_cacheName">Nazwa skrytki</string>
+    <string name="textView_cacheDate">Data dodania</string>
+    <string name="textView_cacheUsername">Użytkownik</string>
+    <string name="textView_cacheDescription">Opis</string>
+    <string name="textView_cacheEdit">Edytuj skrytkę</string>
+    <string name="editText_cacheName">np. \"Sekretna skrytka\"</string>
+    <string name="editText_cacheDescription">np. \"Sekretna skrytka jest bardzo dobrze ukryta.\"</string>
+    <string name="editText_cachePoints">np. 50</string>
+    <string name="button_saveCache">Zapisz skrytkę</string>
+    <string name="button_logCache">Zaloguj skrytkę</string>
 </resources>

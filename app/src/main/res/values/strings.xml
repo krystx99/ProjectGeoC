@@ -10,7 +10,7 @@
     <string name="map_label">Interactive map</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pulvinar accumsan pharetra. Suspendisse ut ipsum ante. Mauris eu erat leo. Etiam feugiat nisl sit amet dictum faucibus. </string>
     <string name="hello_world" translatable="false">
         Hello World
     </string>
@@ -26,6 +26,7 @@
     <string name="textView_loadingApp">Loading application…</string>
     <string name="textView_top10">Top 10 players:</string>
     <string name="textView_noUsers">No players available :(</string>
+    <string name="textView_cacheView">Cache View</string>
 
     <string name="button_login">Login</string>
     <string name="button_logout">Logout</string>
@@ -67,4 +68,14 @@
     <string name="textView_userRegisterDateValue" translatable="false">01.01.2025</string>
     <string name="textView_userPoints">Points</string>
     <string name="textView_userPointsValue" translatable="false">0</string>
+    <string name="textView_cacheName">Cache name</string>
+    <string name="textView_cacheDate">Addition date</string>
+    <string name="textView_cacheUsername">User</string>
+    <string name="textView_cacheDescription">Description</string>
+    <string name="textView_cacheEdit">Edit Cache</string>
+    <string name="editText_cacheName">eg. \"Secret cache\"</string>
+    <string name="editText_cacheDescription">eg. \"Secret cache is very well hidden.\"</string>
+    <string name="editText_cachePoints">eg. 50</string>
+    <string name="button_saveCache">Save cache</string>
+    <string name="button_logCache">Log cache</string>
 </resources>

@@ -213,7 +213,7 @@ public class AuthenticationManager {
                 });
     }
 
-    public static void fetchTopTenUsers(Context context, final TopTenUsersCallback callback) {
+    public static void fetchTopTenUsers(final TopTenUsersCallback callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(USERS_COLLECTION)
                 .orderBy(FIELD_POINTS, Query.Direction.DESCENDING)
