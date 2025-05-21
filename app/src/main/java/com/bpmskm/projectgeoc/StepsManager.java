@@ -51,3 +51,4 @@ public class StepsManager implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 }
+
