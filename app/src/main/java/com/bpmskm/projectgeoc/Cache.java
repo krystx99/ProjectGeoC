@@ -4,22 +4,24 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
 public class Cache {
+    private String id;
     private Timestamp additionDate;
     private String description;
     private GeoPoint location;
     private String name;
     private Long points;
-    private String username;
+    private String addedBy;
 
     public Cache() { }
 
-    public Cache(Timestamp additionDate, String description, GeoPoint location, String name, Long points, String username) {
+    public Cache(String id, Timestamp additionDate, String description, GeoPoint location, String name, Long points, String username) {
+        this.id = id;
         this.additionDate = additionDate;
         this.description = description;
         this.location = location;
         this.name = name;
         this.points = points;
-        this.username = username;
+        this.addedBy = username;
     }
 
     // Gettery
@@ -44,7 +46,11 @@ public class Cache {
     }
 
     public String getUsername() {
-        return username;
+        return addedBy;
+    }
+
+    public String getId() {
+        return id;
     }
 
     // Settery
@@ -69,6 +75,10 @@ public class Cache {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.addedBy = username;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

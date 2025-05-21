@@ -55,13 +55,13 @@ public class CacheManager {
                     List<Cache> fetchedCaches = new ArrayList<>();
                     if (queryDocumentSnapshots != null) {
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            Cache cache = new Cache();
-                            cache.setAdditionDate(document.getTimestamp(FIELD_ADDITION_DATE));
-                            cache.setDescription(document.getString(FIELD_DESCRIPTION));
-                            cache.setLocation(document.getGeoPoint(FIELD_LOCATION));
-                            cache.setName(document.getString(FIELD_NAME));
-                            cache.setPoints(document.getLong(FIELD_POINTS));
-                            cache.setUsername(document.getString(FIELD_USERNAME));
+                            Cache cache = new Cache(document.getId(),
+                                    document.getTimestamp(FIELD_ADDITION_DATE),
+                                    document.getString(FIELD_DESCRIPTION),
+                                    document.getGeoPoint(FIELD_LOCATION),
+                                    document.getString(FIELD_NAME),
+                                    document.getLong(FIELD_POINTS),
+                                    document.getString(FIELD_USERNAME));
                             fetchedCaches.add(cache);
                         }
                     }

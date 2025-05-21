@@ -1,11 +1,7 @@
 package com.bpmskm.projectgeoc;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,29 +11,37 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.PorterDuff;
+import androidx.core.content.ContextCompat;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerClickListener {
+    private static final String TAG = "MapFragment";
     private MapView mapView;
     private GoogleMap googleMap;
     private List<Marker> markersList = new ArrayList<>();
     private boolean isMapReady = false;
-
     private ImageView refresh;
 
     @Override
@@ -85,7 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onMapReady(@NonNull GoogleMap map) {
         googleMap = map;
         isMapReady = true;
-        Log.d("MapFragment", "Mapa jest gotowa");
+        Log.d(TAG, "Mapa jest gotowa");
 
         LatLng defaultLocation = new LatLng(51.938237, 15.505255);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12.5f));
@@ -117,39 +121,44 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
         googleMap.setOnMapLongClickListener(this);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        googleMap.setOnMarkerClickListener(this);
+
 
         CacheManager.fetchCachesData(new CacheManager.CacheFetchCallback() {
             @Override
             public void onCachesFetched(List<Cache> caches) {
                 populateMarkers();
             }
+
             @Override
             public void onFetchFailed(String errorMessage) {
-                Log.e(requireContext().getAttributionTag(), "Nie udało się pobrać danych skrytek: " + errorMessage);
+                Log.e(TAG, "Nie udało się pobrać danych skrytek: " + errorMessage);
                 if (getContext() != null) {
-                    Toast.makeText(getContext(), "Błąd ładowania skrytek: " + errorMessage, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.cache_fetch_failed, Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        Log.d("MapFragment", "Kontrolki mapy zostały włączone.");
+        Log.d(TAG, "Kontrolki mapy zostały włączone.");
     }
+
     @Override
-    public void onMapLongClick(@NonNull LatLng latLng)
-    {
-        MarkerOptions marketOptions = new MarkerOptions()
+    public void onMapLongClick(@NonNull LatLng latLng) {
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_location_pin);
+
+        MarkerOptions markerOptions = new MarkerOptions()
+                .icon(icon)
                 .position(latLng)
                 .title("Nowa pinezka")
                 .snippet("Opis");
 
-        googleMap.addMarker(marketOptions);
-        //DO FIREBASE
+        googleMap.addMarker(markerOptions);
         Toast.makeText(getContext(), "Dodano pinezkę na: " + latLng.latitude + "," + latLng.longitude, Toast.LENGTH_SHORT).show();
     }
 
     private void populateMarkers() {
         if (googleMap == null || !isMapReady) {
-            Log.w(this.getTag(), "Mapa nie jest gotowa do dodania markerów.");
+            Log.w(TAG, "Mapa nie jest gotowa do dodania markerów.");
             return;
         }
 
@@ -157,25 +166,32 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
         List<Cache> caches = CacheManager.getCacheList();
         if (caches.isEmpty()) {
-            Log.d(this.getTag(), "Lista skrytek jest pusta, brak markerów do dodania.");
+            Log.d(TAG, "Lista skrytek jest pusta, brak markerów do dodania.");
             return;
         }
 
-        for (Cache cache : caches) {
+        for (int i = 0; i < caches.size(); i++) {
+            Cache cache = caches.get(i);
             if (cache.getLocation() != null && cache.getName() != null) {
                 LatLng position = new LatLng(cache.getLocation().getLatitude(), cache.getLocation().getLongitude());
                 String title = cache.getName();
+                BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_location_pin);
 
-                MarkerOptions marketOptions = new MarkerOptions()
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .icon(icon)
                         .position(position)
                         .title(title);
 
-                markersList.add(googleMap.addMarker(marketOptions)) ;
+                Marker newMarker = googleMap.addMarker(markerOptions);
+                if (newMarker != null) {
+                    newMarker.setTag(i);
+                    markersList.add(newMarker);
+                }
             } else {
-                Log.w(this.getTag(), "Skrytka z brakującą lokalizacją lub nazwą, pomijanie.");
+                Log.w(TAG, "Skrytka z brakującą lokalizacją lub nazwą, pomijanie.");
             }
         }
-        Log.d(this.getTag(), "Markery zostały zaktualizowane na mapie.");
+        Log.d(TAG, "Markery zostały zaktualizowane na mapie.");
     }
 
     private void updateIconColor() {
@@ -188,5 +204,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         } else {
             refresh.setColorFilter(ContextCompat.getColor(getContext(), android.R.color.black), PorterDuff.Mode.SRC_ATOP);
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        Object tag = marker.getTag();
+        if (tag instanceof Integer) {
+            int cacheIndex = (Integer) tag;
+            List<Cache> caches = CacheManager.getCacheList();
+
+            if (cacheIndex >= 0 && cacheIndex < caches.size()) {
+                Cache selectedCache = caches.get(cacheIndex);
+                Log.d(TAG, "Kliknięto marker dla kesza: " + selectedCache.getName() + " o indeksie: " + cacheIndex);
+
+                if (getActivity() != null) {
+                    CacheViewFragment cacheViewFragment = new CacheViewFragment(selectedCache);
+
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, cacheViewFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+                return true;
+            } else {
+                Log.e(TAG, "Nieprawidłowy indeks kesza w tagu markera: " + cacheIndex);
+            }
+        }
+        return false;
     }
 }
