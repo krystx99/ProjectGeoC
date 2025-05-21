@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Fragment currentFragment;
     private AdView adView;
 
+    private StepsManager stepsManager;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LanguageManager.setLocale(newBase));
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        stepsManager = new StepsManager(this);
 
         // Initialize AdMob
         AdManager.init(this);
@@ -51,33 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
-        // Zezwolenie na wysyłanie powiadomień i wykorzystywanie lokalizacji
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.POST_NOTIFICATIONS,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
-            }
-            else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1001);
-            }
-        }
-        else if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.POST_NOTIFICATIONS,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
-            }
-            else {
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
-            }
-        }
+
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.POST_NOTIFICATIONS,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACTIVITY_RECOGNITION,}, 1001);
 
         mapFragment = new MapFragment();
         messagesFragment = new MessagesFragment();
@@ -119,4 +101,18 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        stepsManager.startListening();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stepsManager.stopListening();
+    }
+
+
 }
