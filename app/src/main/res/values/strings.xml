@@ -88,4 +88,12 @@
     <string name="cache_log_failed">Failed to log cache</string>
     <string name="cache_log_success">Cache logged successfully!</string>
     <string name="cache_fetch_failed">Failed to fetch cache data</string>
+    <string name="textView_pointsReceived">By publishing a new cache You receive 10 points!</string>
+    <string name="cache_create_failed">Failed to save cache</string>
+    <string name="cache_points_negative">Points cannot be a negative value!</string>
+    <string name="error_invalid_number">Invalid points input</string>
+    <string name="location_null">Marker location is null</string>
+    <string name="cache_create_success">Cache saved successfully!</string>
+    <string name="dialog_save_cache_title">Save cache</string>
+    <string name="dialog_save_cache_message">Do you want to save this cache?</string>
 </resources>

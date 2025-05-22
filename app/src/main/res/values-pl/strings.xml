@@ -68,4 +68,12 @@
     <string name="cache_log_failed">Nie udało się zalgować skrytki</string>
     <string name="cache_log_success">Skrytka zalogowana poprawnie!</string>
     <string name="cache_fetch_failed">Nie udalo się załadować danych skrytek</string>
+    <string name="textView_pointsReceived">Za opublikowanie nowej skrytki otrzymasz 10 punktów!</string>
+    <string name="cache_create_failed">Zapis skrytki nie powiódł się</string>
+    <string name="cache_points_negative">Punkty nie mogą być ujemne!</string>
+    <string name="error_invalid_number">Niepoprawna wartość punktów</string>
+    <string name="location_null">Pozycja markera jest null</string>
+    <string name="cache_create_success">Skrytka zapisana poprawnie!</string>
+    <string name="dialog_save_cache_title">Zapis skrytki</string>
+    <string name="dialog_save_cache_message">Czy na pewno chcesz zapisać tą skrytkę?</string>
 </resources>

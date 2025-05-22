@@ -27,7 +27,7 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp"
             android:minWidth="48dp"
-            android:minHeight="48dp">
+            android:minHeight="36dp">
 
             <ImageView
                 android:id="@+id/cache_icon_image_view"
@@ -39,7 +39,7 @@
                 android:adjustViewBounds="true" />
 
             <EditText
-                android:id="@+id/cacheName_text_view"
+                android:id="@+id/cacheName_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/editText_cacheName"
@@ -54,7 +54,7 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="10dp"
             android:minWidth="48dp"
-            android:minHeight="48dp">
+            android:minHeight="36dp">
 
             <TextView
                 android:id="@+id/cacheDescription_text_view"
@@ -73,13 +73,14 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp"
             android:minWidth="48dp"
-            android:minHeight="48dp">
+            android:minHeight="36dp">
 
             <EditText
-                android:id="@+id/cacheDescription_value"
+                android:id="@+id/cacheDescription_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/editText_cacheDescription"
+                android:inputType="textMultiLine"
                 android:textSize="18sp"/>
 
         </LinearLayout>
@@ -91,24 +92,44 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp"
             android:minWidth="48dp"
-            android:minHeight="48dp">
+            android:minHeight="36dp">
 
             <TextView
                 android:id="@+id/points_text_view"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/textView_userPoints"
                 android:textSize="18sp"/>
 
             <EditText
-                android:id="@+id/points_display_text_view"
+                android:id="@+id/cachePoints_editText"
                 android:minWidth="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/editText_cachePoints"
-                android:textAlignment="textEnd"
+                android:textAlignment="center"
+                android:inputType="numberSigned"
                 android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:minWidth="48dp"
+            android:minHeight="36dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/textView_pointsReceived"
+                android:textAlignment="center"
+                android:textSize="14sp"/>
 
         </LinearLayout>
 

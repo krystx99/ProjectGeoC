@@ -144,16 +144,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     @Override
     public void onMapLongClick(@NonNull LatLng latLng) {
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_location_pin);
+        if (getActivity() != null) {
+            CacheEditFragment cacheEditFragment = new CacheEditFragment(latLng);
 
-        MarkerOptions markerOptions = new MarkerOptions()
-                .icon(icon)
-                .position(latLng)
-                .title("Nowa pinezka")
-                .snippet("Opis");
-
-        googleMap.addMarker(markerOptions);
-        Toast.makeText(getContext(), "Dodano pinezkę na: " + latLng.latitude + "," + latLng.longitude, Toast.LENGTH_SHORT).show();
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, cacheEditFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
     }
 
     private void populateMarkers() {
