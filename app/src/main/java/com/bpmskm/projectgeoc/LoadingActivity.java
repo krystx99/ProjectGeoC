@@ -17,7 +17,7 @@ public class LoadingActivity extends AppCompatActivity {
         AuthenticationManager.fetchCurrentUserData(this, new AuthenticationManager.UserDataFetchCallback() {
             @Override
             public void onSuccess() {
-                AuthenticationManager.fetchTopTenUsers(LoadingActivity.this, new AuthenticationManager.TopTenUsersCallback() {
+                AuthenticationManager.fetchTopTenUsers(new AuthenticationManager.TopTenUsersCallback() {
                     @Override
                     public void onSuccess(List<User> topUsers) {
                         startActivity(new Intent(LoadingActivity.this, MainActivity.class));
@@ -26,7 +26,7 @@ public class LoadingActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(String errorMessage) {
-                        Toast.makeText(LoadingActivity.this, getString(R.string.login_failed) + ": " + errorMessage, Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoadingActivity.this, getString(R.string.login_failed), Toast.LENGTH_LONG).show();
                         AuthenticationManager.signOut(LoadingActivity.this);
                     }
                 });
@@ -34,7 +34,7 @@ public class LoadingActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String errorMessage) {
-                Toast.makeText(LoadingActivity.this, getString(R.string.login_failed) + ": " + errorMessage, Toast.LENGTH_LONG).show();
+                Toast.makeText(LoadingActivity.this, getString(R.string.login_failed), Toast.LENGTH_LONG).show();
                 AuthenticationManager.signOut(LoadingActivity.this);
             }
         });

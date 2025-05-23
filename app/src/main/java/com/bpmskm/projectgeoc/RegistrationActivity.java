@@ -61,7 +61,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(String errorMessage) {
-                    Toast.makeText(RegistrationActivity.this, getString(R.string.registration_failed) + " " + errorMessage, Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistrationActivity.this, getString(R.string.registration_failed), Toast.LENGTH_LONG).show();
                 }
             });
 

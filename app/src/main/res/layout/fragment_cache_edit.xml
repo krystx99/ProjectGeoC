@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -5,34 +6,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/viewCache_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/more_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/bottomMenu_profile"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_gravity="start"/>
-
-            <ImageView
-                android:id="@+id/refresh_image_view"
-                android:layout_width="34dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_refresh"
-                android:contentDescription="refresh"
-                android:adjustViewBounds="true" />
-
-        </LinearLayout>
+            android:text="@string/textView_cacheEdit"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="start"
+            android:layout_marginBottom="16dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,23 +27,22 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp"
             android:minWidth="48dp"
-            android:minHeight="48dp">
+            android:minHeight="36dp">
 
             <ImageView
-                android:id="@+id/user_profile_icon_image_view"
+                android:id="@+id/cache_icon_image_view"
                 android:layout_width="95dp"
                 android:layout_height="82dp"
-                android:src="@drawable/ic_user"
-                android:contentDescription="@string/fragment_profile"
+                android:src="@drawable/ic_cache_edit"
+                android:contentDescription="@string/textView_cacheEdit"
                 android:scaleType="fitStart"
                 android:adjustViewBounds="true" />
 
-
-            <TextView
-                android:id="@+id/username_text_view"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/cacheName_editText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/textView_username"
+                android:hint="@string/editText_cacheName"
                 android:textSize="24sp"/>
 
         </LinearLayout>
@@ -67,24 +52,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="10dp"
             android:minWidth="48dp"
-            android:minHeight="48dp">
+            android:minHeight="36dp">
 
             <TextView
-                android:id="@+id/register_date_text_view"
+                android:id="@+id/cacheDescription_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/textView_userRegisterDate"
+                android:text="@string/textView_cacheDescription"
                 android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/register_date_display_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/textView_userRegisterDateValue"
-                android:textSize="18sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -94,7 +73,26 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp"
             android:minWidth="48dp"
-            android:minHeight="48dp">
+            android:minHeight="36dp">
+
+            <EditText
+                android:id="@+id/cacheDescription_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/editText_cacheDescription"
+                android:inputType="textMultiLine"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:minWidth="48dp"
+            android:minHeight="36dp">
 
             <TextView
                 android:id="@+id/points_text_view"
@@ -104,12 +102,16 @@
                 android:text="@string/textView_userPoints"
                 android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/points_display_text_view"
+            <EditText
+                android:id="@+id/cachePoints_editText"
+                android:minWidth="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:hint="@string/editText_cachePoints"
+                android:textAlignment="center"
+                android:inputType="numberSigned"
                 android:textSize="18sp"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -119,22 +121,16 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp"
             android:minWidth="48dp"
-            android:minHeight="48dp">
+            android:minHeight="36dp">
 
             <TextView
-                android:id="@+id/step_count_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/textView_userSteps"
-                android:textSize="18sp"/>
+                android:text="@string/textView_pointsReceived"
+                android:textAlignment="center"
+                android:textSize="14sp"/>
 
-            <TextView
-                android:id="@+id/step_count_display_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="18sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -147,10 +143,27 @@
             android:minHeight="48dp">
 
             <Button
-                android:id="@+id/logout_button"
+                android:id="@+id/saveCache_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button_logout" />
+                android:text="@string/button_saveCache" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp">
+
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_back" />
+
         </LinearLayout>
 
     </LinearLayout>

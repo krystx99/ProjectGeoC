@@ -1,18 +1,23 @@
 package com.bpmskm.projectgeoc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
+    private List<String> caches = new ArrayList<>();
     private String uid;
     private String username;
     private String registerDate;
     private int points;
     private int steps;
 
-    public User(String uid, String username, String registerDate, int points, int steps) {
+    public User(String uid, String username, String registerDate, int points, int steps, List<String> caches) {
         this.uid = uid;
         this.username = username;
         this.registerDate = registerDate;
         this.points = points;
         this.steps = steps;
+        this.caches = caches;
     }
 
     public User(String username, int points){
@@ -40,6 +45,10 @@ public class User {
         return steps;
     }
 
+    public List<String> getCaches() {
+        return caches;
+    }
+
     public void setUid(String uid) {
         this.uid = uid;
     }
@@ -58,5 +67,9 @@ public class User {
 
     public void setSteps(int steps) {
         this.steps = steps;
+    }
+
+    public void setCaches(List<String> caches) {
+        this.caches = caches;
     }
 }
