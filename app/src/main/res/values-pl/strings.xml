@@ -12,8 +12,9 @@
     <string name="textView_passwordRequirements">Hasło musi składać się z co najmniej 8 znaków, zawierać co najmniej jedną literę, jedną cyfrę i jeden znak specjalny.</string>
     <string name="textView_loadingApp">Ładowanie aplikacji…</string>
     <string name="textView_top10">Top 10 graczy:</string>
-
+    <string name="textView_cacheView">Podgląd skrytki</string>
     <string name="textView_noUsers">Brak graczy :(</string>
+
     <string name="button_login">Zaloguj się</string>
     <string name="button_logout">Wyloguj się</string>
     <string name="button_register">Zarejestruj się</string>
@@ -27,13 +28,13 @@
     <string name="bottomMenu_more">Więcej</string>
     <!-- Login -->
     <string name="login_missingDetails">Proszę poprawnie wpisać wszystkie dane</string>
-    <string name="login_failed">"Logowanie nieudane: "</string>
+    <string name="login_failed">"Logowanie nieudane"</string>
     <string name="login_forgotPassword">Nie pamiętasz hasła?</string>
     <!-- Registration -->
     <string name="registration_missingDetails">Proszę poprawnie wpisać wszystkie dane</string>
     <string name="registration_passwordsNotMatch">Hasła nie są identyczne</string>
     <string name="registration_passwordNotValid">Hasło nie spełnia wymagań</string>
-    <string name="registration_failed">"Rejestracja nieudana: "</string>
+    <string name="registration_failed">"Rejestracja nieudana"</string>
     <string name="registration_success">Twoje konto zostało zarejestrowane! Możesz teraz zalogować się na to konto.</string>
     <string name="textView_appTheme">Motyw aplikacji</string>
     <string name="textView_Language">Język</string>
@@ -48,4 +49,31 @@
     <string name="textView_username">Nazwa użytkownika</string>
     <string name="textView_userRegisterDate">Data rejestracji</string>
     <string name="textView_userPoints">Punkty</string>
+    <string name="textView_cacheName">Nazwa skrytki</string>
+    <string name="textView_cacheDate">Data dodania</string>
+    <string name="textView_cacheAddedBy">Dodano przez</string>
+    <string name="textView_cacheDescription">Opis</string>
+    <string name="textView_cacheEdit">Edytuj skrytkę</string>
+    <string name="editText_cacheName">np. \"Sekretna skrytka\"</string>
+    <string name="editText_cacheDescription">np. \"Sekretna skrytka jest bardzo dobrze ukryta.\"</string>
+    <string name="editText_cachePoints">np. 50</string>
+    <string name="button_saveCache">Zapisz skrytkę</string>
+    <string name="button_logCache">Zaloguj skrytkę</string>
+    <!-- Dialogue popup -->
+    <string name="dialog_log_cache_title">Zaloguj skrytkę</string>
+    <string name="dialog_log_cache_message">Czy na pewno chcesz zalogować tą skrytkę?</string>
+    <string name="dialog_yes">Tak</string>
+    <string name="dialog_no">Nie</string>
+    <string name="user_null">Obecny użytkownik jest null</string>
+    <string name="cache_log_failed">Nie udało się zalgować skrytki</string>
+    <string name="cache_log_success">Skrytka zalogowana poprawnie!</string>
+    <string name="cache_fetch_failed">Nie udalo się załadować danych skrytek</string>
+    <string name="textView_pointsReceived">Za opublikowanie nowej skrytki otrzymasz 10 punktów!</string>
+    <string name="cache_create_failed">Zapis skrytki nie powiódł się</string>
+    <string name="cache_points_negative">Punkty nie mogą być ujemne!</string>
+    <string name="error_invalid_number">Niepoprawna wartość punktów</string>
+    <string name="location_null">Pozycja markera jest null</string>
+    <string name="cache_create_success">Skrytka zapisana poprawnie!</string>
+    <string name="dialog_save_cache_title">Zapis skrytki</string>
+    <string name="dialog_save_cache_message">Czy na pewno chcesz zapisać tą skrytkę?</string>
 </resources>

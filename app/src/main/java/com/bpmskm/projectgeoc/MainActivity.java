@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Fragment currentFragment;
     private AdView adView;
 
+    private StepsManager stepsManager;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LanguageManager.setLocale(newBase));
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        stepsManager = new StepsManager(this);
 
         // Initialize AdMob
         AdManager.init(this);
@@ -50,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         AdManager.loadBanner(adView);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
-
         // Zezwolenie na wysyłanie powiadomień i wykorzystywanie lokalizacji
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
@@ -86,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                         Manifest.permission.READ_EXTERNAL_STORAGE}, 1001);
             }
         }
+
+     
 
         mapFragment = new MapFragment();
         messagesFragment = new MessagesFragment();
@@ -127,4 +131,18 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        stepsManager.startListening();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stepsManager.stopListening();
+    }
+
+
 }
