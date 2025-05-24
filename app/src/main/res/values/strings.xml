@@ -10,7 +10,7 @@
     <string name="map_label">Interactive map</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pulvinar accumsan pharetra. Suspendisse ut ipsum ante. Mauris eu erat leo. Etiam feugiat nisl sit amet dictum faucibus. </string>
     <string name="hello_world" translatable="false">
         Hello World
     </string>
@@ -26,6 +26,7 @@
     <string name="textView_loadingApp">Loading application…</string>
     <string name="textView_top10">Top 10 players:</string>
     <string name="textView_noUsers">No players available :(</string>
+    <string name="textView_cacheView">Cache View</string>
 
     <string name="button_login">Login</string>
     <string name="button_logout">Logout</string>
@@ -40,13 +41,13 @@
     <string name="bottomMenu_more">More</string>
     <!-- Login -->
     <string name="login_missingDetails">Please fill in all fields</string>
-    <string name="login_failed">"Login failed: "</string>
+    <string name="login_failed">"Login failed"</string>
     <string name="login_forgotPassword">Forgot password?</string>
     <!-- Registration -->
     <string name="registration_missingDetails">Please fill in all fields</string>
     <string name="registration_passwordsNotMatch">Passwords do not match</string>
     <string name="registration_passwordNotValid">Password does not meet the requirements</string>
-    <string name="registration_failed">"Registration failed: "</string>
+    <string name="registration_failed">"Registration failed"</string>
     <string name="registration_success">Your account has been registered! You can now login to this account.</string>
     <string name="textView_appTheme">Application theme</string>
     <string name="textView_Language">Language</string>
@@ -67,4 +68,32 @@
     <string name="textView_userRegisterDateValue" translatable="false">01.01.2025</string>
     <string name="textView_userPoints">Points</string>
     <string name="textView_userPointsValue" translatable="false">0</string>
+    <!-- Cache Data -->
+    <string name="textView_cacheName">Cache name</string>
+    <string name="textView_cacheDate">Addition date</string>
+    <string name="textView_cacheAddedBy">Added by</string>
+    <string name="textView_cacheDescription">Description</string>
+    <string name="textView_cacheEdit">Edit Cache</string>
+    <string name="editText_cacheName">eg. \"Secret cache\"</string>
+    <string name="editText_cacheDescription">eg. \"Secret cache is very well hidden.\"</string>
+    <string name="editText_cachePoints">eg. 50</string>
+    <string name="button_saveCache">Save cache</string>
+    <string name="button_logCache">Log cache</string>
+    <!-- Dialogue popup -->
+    <string name="dialog_log_cache_title">Log cache</string>
+    <string name="dialog_log_cache_message">Do you want to log this cache?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="user_null">Current user is null</string>
+    <string name="cache_log_failed">Failed to log cache</string>
+    <string name="cache_log_success">Cache logged successfully!</string>
+    <string name="cache_fetch_failed">Failed to fetch cache data</string>
+    <string name="textView_pointsReceived">By publishing a new cache You receive 10 points!</string>
+    <string name="cache_create_failed">Failed to save cache</string>
+    <string name="cache_points_negative">Points cannot be a negative value!</string>
+    <string name="error_invalid_number">Invalid points input</string>
+    <string name="location_null">Marker location is null</string>
+    <string name="cache_create_success">Cache saved successfully!</string>
+    <string name="dialog_save_cache_title">Save cache</string>
+    <string name="dialog_save_cache_message">Do you want to save this cache?</string>
 </resources>

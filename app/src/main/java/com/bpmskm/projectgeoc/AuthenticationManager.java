@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AuthenticationManager {
-    private static final String TAG = "AuthManager";
+    private static final String TAG = "AuthenticationManager";
     private static final String PREFS_NAME = "auth_prefs";
     private static final String KEY_LOGGED_IN = "is_logged_in";
     private static final String USERS_COLLECTION = "Users";
@@ -28,6 +28,7 @@ public class AuthenticationManager {
     private static final String FIELD_REGISTER_DATE = "registerDate";
     public static final String FIELD_POINTS = "points";
     private static final String FIELD_STEPS = "steps";
+    private static final String FIELD_CACHES = "caches";
 
 
     public interface AuthCallback {
@@ -159,13 +160,17 @@ public class AuthenticationManager {
 
                             Long pointsValue = documentSnapshot.getLong(FIELD_POINTS);
                             Long stepsValue = documentSnapshot.getLong(FIELD_STEPS);
+                            Object cachesObject = documentSnapshot.get(FIELD_CACHES);
+                            //noinspection unchecked
+                            List<String> caches = (List<String>) cachesObject;
 
                             User user = new User(
                                     uid,
                                     usernameValue,
                                     registerDate,
                                     pointsValue != null ? pointsValue.intValue() : 0,
-                                    stepsValue != null ? stepsValue.intValue() : 0
+                                    stepsValue != null ? stepsValue.intValue() : 0,
+                                    caches
                             );
 
                             UserManager.setCurrentUser(user);
@@ -213,7 +218,7 @@ public class AuthenticationManager {
                 });
     }
 
-    public static void fetchTopTenUsers(Context context, final TopTenUsersCallback callback) {
+    public static void fetchTopTenUsers(final TopTenUsersCallback callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(USERS_COLLECTION)
                 .orderBy(FIELD_POINTS, Query.Direction.DESCENDING)
