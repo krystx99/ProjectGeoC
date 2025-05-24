@@ -59,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.POST_NOTIFICATIONS,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACTIVITY_RECOGNITION,}, 1001);
+                Manifest.permission.ACTIVITY_RECOGNITION,
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE}, 1001);
 
         mapFragment = new MapFragment();
         messagesFragment = new MessagesFragment();
