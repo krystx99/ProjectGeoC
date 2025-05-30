@@ -35,10 +35,10 @@
     <string name="button_back">Back</string>
     <!-- Bottom Menu -->
     <string name="bottomMenu_profile">Profile</string>
-    <string name="bottomMenu_messages">Messages</string>
     <string name="bottomMenu_map">Map</string>
     <string name="bottomMenu_list">Lists</string>
     <string name="bottomMenu_more">More</string>
+    <string name="bottomMenu_memories">Memories</string>
     <!-- Login -->
     <string name="login_missingDetails">Please fill in all fields</string>
     <string name="login_failed">"Login failed"</string>
@@ -97,4 +97,6 @@
     <string name="dialog_save_cache_title">Save cache</string>
     <string name="dialog_save_cache_message">Do you want to save this cache?</string>
     <string name="generate_pdf">Generate PDF</string>
+    <string name="textView_camera">Camera</string>
+    <string name="textView_gallery">Gallery</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.bpmskm.projectgeoc;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -12,14 +11,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatDelegate;
 import android.content.Context;
-import android.view.MenuItem;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
     private Fragment profileFragment;
     private Fragment mapFragment;
-    private Fragment messagesFragment;
+    private Fragment memoriesFragment;
     private Fragment listsFragment;
     private Fragment moreFragment;
     private Fragment currentFragment;
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE}, 1001);
 
         mapFragment = new MapFragment();
-        messagesFragment = new MessagesFragment();
+        memoriesFragment = new MemoriesFragment();
         listsFragment = new ListsFragment();
         moreFragment = new MoreFragment();
         profileFragment = new ProfileFragment();
@@ -78,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (itemId == R.id.nav_profile) {
                 fragment =  profileFragment;
-            } else if (itemId == R.id.nav_messages) {
-                fragment = messagesFragment;
+            } else if (itemId == R.id.nav_memories) {
+                fragment = memoriesFragment;
             } else if (itemId == R.id.nav_map) {
                 fragment =  mapFragment;
             } else if (itemId == R.id.nav_lists) {
@@ -112,8 +111,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        UserManager.sendUserSteps(new UserManager.UserStepsUpdateCallback() {
+            @Override
+            public void onStepsUpdateSuccess() {
+                Log.e("MainAcitivty", "Sending user data.");
+            }
+
+            @Override
+            public void onStepsUpdateFailure(String errorMessage) {
+                Log.e("MainAcitivty", "Could not fetch user data: " + errorMessage);
+            }
+        });
         stepsManager.stopListening();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        UserManager.sendUserSteps(new UserManager.UserStepsUpdateCallback() {
+            @Override
+            public void onStepsUpdateSuccess() {
+                Log.e("MainAcitivty", "Sending user data.");
+            }
 
+            @Override
+            public void onStepsUpdateFailure(String errorMessage) {
+                Log.e("MainAcitivty", "Could not fetch user data: " + errorMessage);
+            }
+        });
+    }
 }
