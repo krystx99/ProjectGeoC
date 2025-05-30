@@ -76,4 +76,5 @@
     <string name="cache_create_success">Skrytka zapisana poprawnie!</string>
     <string name="dialog_save_cache_title">Zapis skrytki</string>
     <string name="dialog_save_cache_message">Czy na pewno chcesz zapisać tą skrytkę?</string>
+    <string name="generate_pdf">Generate PDF</string>
 </resources>

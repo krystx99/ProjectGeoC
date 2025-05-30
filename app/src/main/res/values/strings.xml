@@ -96,4 +96,5 @@
     <string name="cache_create_success">Cache saved successfully!</string>
     <string name="dialog_save_cache_title">Save cache</string>
     <string name="dialog_save_cache_message">Do you want to save this cache?</string>
+    <string name="generate_pdf">Generate PDF</string>
 </resources>

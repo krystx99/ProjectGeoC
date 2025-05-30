@@ -140,7 +140,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp"
             android:minWidth="48dp"
@@ -150,7 +150,14 @@
                 android:id="@+id/logout_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/button_logout" />
+            <Button
+                android:id="@+id/pdf_button"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/generate_pdf" />
         </LinearLayout>
 
     </LinearLayout>
