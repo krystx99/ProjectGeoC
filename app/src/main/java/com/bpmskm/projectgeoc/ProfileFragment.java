@@ -18,7 +18,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
 
 import android.widget.Button;
 import android.widget.ImageView;
@@ -64,19 +63,29 @@ public class ProfileFragment extends Fragment {
         });
 
         refresh.setOnClickListener((v) -> {
-            AuthenticationManager.fetchCurrentUserData(requireActivity(), new AuthenticationManager.UserDataFetchCallback() {
+            UserManager.sendUserSteps(new UserManager.UserStepsUpdateCallback() {
                 @Override
-                public void onSuccess() {
-                    requireActivity().recreate();
+                public void onStepsUpdateSuccess() {
+                    AuthenticationManager.fetchCurrentUserData(requireActivity(), new AuthenticationManager.UserDataFetchCallback() {
+                        @Override
+                        public void onSuccess() {
+                            requireActivity().recreate();
+                        }
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            Log.e(TAG, "Could not fetch user data: " + errorMessage);
+                        }
+                    });
                 }
+
                 @Override
-                public void onFailure(String errorMessage) {
-                    Log.e(TAG, "Could not fetch user data: " + errorMessage);
+                public void onStepsUpdateFailure(String errorMessage) {
+                    Log.e(TAG, "Could not send user data: " + errorMessage);
                 }
             });
         });
         generatePdfButton.setOnClickListener(v -> generatePdf());
-        updateUserIconColor();
+        updateIconColor();
         return view;
     }
 
@@ -111,8 +120,8 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void updateUserIconColor() {
-        if (getContext() == null || userProfileIconImageView == null) {
+    private void updateIconColor() {
+        if (getContext() == null || userProfileIconImageView == null || refresh == null) {
             return;
         }
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
